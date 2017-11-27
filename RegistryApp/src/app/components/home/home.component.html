@@ -1,0 +1,72 @@
+<div class="row py-3 rounded drop-shadow bg-back">
+  <div class="col-lg-12 mt-2" align="center">
+    <div class="d-inline"><img src="../../../assets/img/gift_icon.png" class="img-responsive" height="95px" width="100px"></div>
+    <div class="d-inline"><span class="align-middle h2" >gifts & registries</span></div>
+    <div class="mt-2">
+      <h1>GIVE THE PERFECT GIFT</h1>
+    </div>
+    <div class="mt-3">
+        <h4>find a registry</h4>
+    </div>
+    <div class="mt-2">
+      <form>
+        <div class="col-lg-6">
+          <div class="float-left">
+              <input type="text" placeholder="First Name" class="form-control">
+          </div>
+          <div class="float-right">
+              <input type="text" placeholder="Last Name" class="form-control">
+          </div><br>
+          <div class="float-none mt-4 col-lg-5">
+              <input type="submit" value="Search" class="btn btn-block btn-primary">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row py-3 rounded mt-3 drop-shadow bg-back vdivide">
+    <div class="col-lg-6 mt-2" align="center">
+        <h4 class="mb-3">manage your registries & lists</h4>
+        <div class="col-md-8 py-0 regDiv">
+          <div class="d-inline">
+            <img src="../../../assets/img/reg_icon.png" class="img-responsive" height="70px" width="70px">
+          </div>
+          <div class="d-inline">
+            <span class="align-middle p">rahul's birthday registry</span>
+          </div>
+          <div style="clear:both;"></div>
+        </div>
+    </div>
+    <div class="col-lg-6 mt-2" align="center">
+      <h4>create new registry</h4>
+        <div class="img-wrapper">
+            <img class="img-responsive rounded drop-shadow" src="../../../assets/img/create_registry_background.jpg" width="70%">
+            <div class="img-overlay">
+              <img src="../../../assets/img/logo.png" width="50px" height="46px" alt="" id="logo"/>
+              <form novalidate #f="ngForm" (ngSubmit) = "onCreateRegistryClick(f)">
+                <div class="form-group mt-2" align="center">
+                    <input 
+                      style="max-width: 50%;"
+                      type="text" 
+                      class="form-control" 
+                      [ngClass]="{'is-invalid':regName.errors?.required && regName.touched || regName.errors?.minlength}"
+                      [(ngModel)]="registryName" 
+                      #regName = "ngModel"
+                      name="email"
+                      required
+                      minlength="2"
+                      placeholder="Registry Name" />
+                    <div *ngIf="regName.errors?.required && regName.touched" class="invalid-feedback">
+                      Registry name is required.
+                    </div>
+                    <div *ngIf="regName.errors?.minlength && regName.touched" class="invalid-feedback">
+                      Registry name must be atleast 2 characters long.
+                    </div>
+                </div>
+                <input type="submit" value="Create" class="btn btn-light"/>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
