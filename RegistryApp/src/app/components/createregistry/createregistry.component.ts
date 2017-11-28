@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DataserviceService } from '../../services/dataservice.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import  {DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router, ActivatedRoute } from '@angular/router';
-import {RegistryService} from '../../services/registry.service';
+import { RegistryService } from '../../services/registry.service';
+import {AuthserviceService} from '../../services/authservice.service';
 
 @Component({
   selector: 'app-createregistry',
@@ -26,30 +27,42 @@ export class CreateregistryComponent implements OnInit {
   };
   
   user = {
-    firstName: 'Rahul',
-    lastName: 'Sengupta',
+    firstName: '',
+    lastName: '',
     regUrl: 'ras.pi/',
     registryDate: '',
-    regName: ''
+    regName: '',
+    shared: false
   };
 
-  userId:number=0;
+  userEmail:String='';
+
   constructor(
     private dataService: DataserviceService,
     private flashMessageService: FlashMessagesService,
     private router: Router,
     private route: ActivatedRoute,
-    private registryService: RegistryService
+    private registryService: RegistryService,
+    private authService:AuthserviceService
   ) { }
   
   ngOnInit() {
+
     this.user.regName = this.route.snapshot.params['regName'];
-    console.log(this.user.regName.valueOf());
-    
     this.dataService.currentMessage.subscribe(message => {
-      // this.user.regUrl+=message;
-      // this.user.regName = message;
-      this.userId = message;
+      this.userEmail = message;
+      this.authService.fetchUser(this.userEmail).subscribe(
+        result => {
+          // this.user = result._body;
+          console.log(result);
+          let jsonData = JSON.parse(result._body);  
+          this.user.firstName = jsonData.firstName;
+          this.user.lastName = jsonData.lastName;
+        },
+        error => {
+          console.log(error);
+        }
+      );
     });
 
     let datePipe = new DatePipe('en-US');

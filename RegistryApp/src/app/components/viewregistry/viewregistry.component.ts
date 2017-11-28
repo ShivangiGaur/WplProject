@@ -19,12 +19,12 @@ export class ViewregistryComponent implements OnInit {
     private registryService: RegistryService
   ) { }
 
-  userId:number = 0;
+  userEmail:String = '';
   regModel:any = {};
 
   ngOnInit() {
     this.dataService.currentMessage.subscribe(message=>{
-      this.userId = message;
+      this.userEmail = message;
     });
     this.registryService.currentMessage.subscribe(message => {
       this.regModel = message;

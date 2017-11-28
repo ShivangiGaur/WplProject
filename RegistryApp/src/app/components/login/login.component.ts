@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   email:string='';
   password:string='';
+  loginAsAdmin:boolean=false;
 
   constructor(
     private authService: AuthserviceService,
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit({value, valid}:{value: any,valid: boolean}){
+    console.log(value);
     if(!valid){
       this.flashMessagesService.show('Please enter valid credentials.',{
         cssClass:'alert-danger',
@@ -35,21 +37,48 @@ export class LoginComponent implements OnInit {
       });
       this.router.navigate(['login']);
     } else {
-      // let result:UserModel = this.authService.authenticateUser(value.email,value.password);
-      // if(result){
-      //   this.flashMessagesService.show('Successfully logged in.',{
-      //     cssClass:'alert-success',
-      //     timeout: 2000
-      //   });
-      //   this.dataService.changeMessage(result.id);
-      //   this.router.navigate(['']);
-      // } else{
-      //   this.flashMessagesService.show('Invalid username or password. Please try again.',{
-      //     cssClass:'alert-danger',
-      //     timeout: 2000
-      //   });
-      //   this.router.navigate(['login']);
-      // }
+      // this.dataService.changeMessage(result.id);
+      if(!value.loginAsAdmin){
+        this.authService.authenticateUser(value.email, value.password)
+        .subscribe(
+          result => {
+            console.log(result._body);
+            this.dataService.changeMessage(result._body);
+            this.flashMessagesService.show('Login successful!',{
+              cssClass:'alert-success',
+              timeout:'2000'
+            });
+            this.router.navigate(['']);
+          },
+          error => {
+            this.flashMessagesService.show('User Login failed due to: '+error,{
+              cssClass:'alert-danger',
+              timeout:'2000'
+            });
+            this.router.navigate(['login']);
+          }
+        );
+      } else {
+        this.authService.authenticateAdmin(value.email, value.password)
+        .subscribe(
+          result => {
+            console.log(result._body);
+            this.dataService.changeMessage(result._body);
+            this.flashMessagesService.show('Login successful!',{
+              cssClass:'alert-success',
+              timeout:'2000'
+            });
+            this.router.navigate(['admin-panel']);
+          },
+          error => {
+            this.flashMessagesService.show('Admin Login failed due to: '+error,{
+              cssClass:'alert-danger',
+              timeout:'2000'
+            });
+            this.router.navigate(['login']);
+          }
+        );
+      }
     }
   }
 }

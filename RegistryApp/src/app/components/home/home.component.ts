@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 export class HomeComponent implements OnInit {
 
-  userId: number = 0;
+  userEmail: String = '';
   constructor(
     private dataService: DataserviceService,
     private router: Router) { }
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.currentMessage.subscribe(message => {
-      this.userId = message
+      this.userEmail = message
       
     });
   }

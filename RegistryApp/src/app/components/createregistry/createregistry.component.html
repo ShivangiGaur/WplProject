@@ -109,6 +109,17 @@
                           </div>
                           <label class="text-justify py-2"><code><strong>*Note</strong></code>This becomes a link directly to your registry page. You will not be able to change the URL once you've set it here.</label>
                       </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input 
+                          required
+                          type="checkbox" 
+                          class="form-check-input"
+                          [(ngModel)]="user.shared"
+                          (change)="user.shared = !user.shared" >
+                          Check if you want it to be a private registry
+                        </label>
+                      </div>
                     </div>
                     <div class="col-lg-4 mx-auto">
                       {{userId}}

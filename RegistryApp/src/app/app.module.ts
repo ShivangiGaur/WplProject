@@ -23,6 +23,7 @@ import {DataserviceService} from './services/dataservice.service';
 import {RegistryService} from './services/registry.service';
 import {RegisterService} from './services/register.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AdminComponent } from './components/admin/admin.component';
 
 //routes for this application
 const appRoutes = [
@@ -49,6 +50,10 @@ const appRoutes = [
   {
     path: 'view-registry',
     component: ViewregistryComponent
+  },
+  {
+    path: 'admin-panel',
+    component: AdminComponent
   }
 ];
 
@@ -64,7 +69,8 @@ const appRoutes = [
     UserprofileComponent,
     ViewregistryComponent,
     SearchregistryComponent,
-    CreateregistryComponent
+    CreateregistryComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

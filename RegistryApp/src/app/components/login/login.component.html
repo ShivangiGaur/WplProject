@@ -38,6 +38,17 @@
                             Password is required.
                         </div>
                     </div>
+                    <div class="form-check" align="center">
+                        <label class="form-check-label">
+                          <input
+                          type="checkbox" 
+                          class="form-check-input"
+                          [(ngModel)]="loginAsAdmin"
+                          name="loginAsAdmin"
+                          (change)="loginAsAdmin = loginAsAdmin" >
+                          Login as an admin
+                        </label>
+                    </div>
                     <input type="submit" value="Login" class="btn btn-primary btn-block">
                 </form>
                 <hr>
