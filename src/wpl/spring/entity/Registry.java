@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "registry")
 @Table(name = "registry")
 public class Registry {
 
@@ -24,11 +24,40 @@ public class Registry {
 	
 	@Column(name = "Share")
 	private int share;
-	
-	@Column(name = "AddressId")
-	private int addressId;
 
+	@Column(name = "userEmail")
+	private String userEmail;
+
+	@Column(name = "url")
+	private String url;
 	
+	public Registry(int registryId, String registryName, String eventDate, int share, String userEmail,
+			String url) {
+		super();
+		this.registryId = registryId;
+		this.registryName = registryName;
+		this.eventDate = eventDate;
+		this.share = share;
+		this.userEmail = userEmail;
+		this.url = url;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
 	public Registry() {
 		
 	}
@@ -65,20 +94,4 @@ public class Registry {
 		this.share = share;
 	}
 
-	public int getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
-	}
-
-	public Registry(String registryName, String eventDate, int share, int addressId) {
-		this.registryName = registryName;
-		this.eventDate = eventDate;
-		this.share = share;
-		this.addressId = addressId;
-	}
-	
-	
 }

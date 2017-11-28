@@ -22,7 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import wpl.spring.entity.Inventory;
 import wpl.spring.entity.User;
 import wpl.spring.entity.registryItem;
-import wpl.spring.service.IRegistryService;
+import wpl.spring.service.IRegistryItemService;
 import wpl.spring.service.IUserService;
 
 @Controller

@@ -66,6 +66,7 @@ public class IUserServiceImp implements IUserService {
 	}
 
 	@Override
+	@Transactional
 	public String authenticateUser(String email, String password) {
 		// TODO Auto-generated method stub
 		return addUserDao.authenticateUser(email, password);
