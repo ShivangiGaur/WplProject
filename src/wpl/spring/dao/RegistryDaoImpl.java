@@ -28,9 +28,9 @@ public class RegistryDaoImpl implements RegistryDao {
 
 
 	@Override
-	public Registry getRegistry(int registryId) {
+	public Registry getRegistry(String url) {
 		Session currentSession = sessionFactory.getCurrentSession();
-		String stringQuery = "FROM registry WHERE RegistryID = " + registryId;
+		String stringQuery = "FROM registry WHERE url = '" + url +"'";
 		Query query = currentSession.createQuery(stringQuery);
 		List<Registry> userReturned = query.getResultList();
 		if(userReturned.size()>0)

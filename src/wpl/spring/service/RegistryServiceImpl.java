@@ -24,8 +24,8 @@ public class RegistryServiceImpl implements RegistryService {
 
 	@Override
 	@Transactional
-	public Registry getRegistry(int registryId) {
-		return registryDao.getRegistry(registryId);
+	public Registry getRegistry(String url) {
+		return registryDao.getRegistry(url);
 	}
 
 	@Override

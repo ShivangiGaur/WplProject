@@ -38,11 +38,11 @@ public class RegistryController {
 	//-------------------------------------------------------------
 	@CrossOrigin
 	@RequestMapping(value = "/getregistry/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Registry> getUser(@RequestParam("registryId") int registryId) {
+	public ResponseEntity<Registry> getUser(@RequestParam("url") String url) {
 		//	        System.out.println("Fetching User with email " + email);
-		Registry registry = registryService.getRegistry(registryId);
+		Registry registry = registryService.getRegistry(url);
 		if (registry == null) {
-			System.out.println("Registry having id " + registryId + " not found");
+			System.out.println("Registry having url " + url + " not found");
 			return new ResponseEntity<Registry>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Registry>(registry, HttpStatus.OK);

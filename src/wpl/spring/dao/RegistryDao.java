@@ -8,7 +8,7 @@ public interface RegistryDao {
 	
 	public void addRegistry(Registry registry);
 	
-	public Registry getRegistry(int registryId);
+	public Registry getRegistry(String url);
 	
 	public List<Registry> getallUserRegistry(String userEmail);
 	
