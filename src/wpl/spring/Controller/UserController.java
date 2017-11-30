@@ -21,7 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import wpl.spring.entity.Inventory;
 import wpl.spring.entity.User;
-import wpl.spring.entity.registryItem;
+import wpl.spring.entity.registryitem;
 import wpl.spring.service.IRegistryItemService;
 import wpl.spring.service.IUserService;
 

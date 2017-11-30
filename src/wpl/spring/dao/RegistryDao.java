@@ -10,7 +10,7 @@ public interface RegistryDao {
 	
 	public Registry getRegistry(String url);
 	
-	public List<Registry> getallUserRegistry(String userEmail);
+	public List<Registry> getAllRegistries(String userEmail);
 	
 	public int updateRegistry(String url, Registry registry);
 	

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import wpl.spring.entity.Inventory;
 import wpl.spring.entity.Registry;
-import wpl.spring.entity.registryItem;
+import wpl.spring.entity.registryitem;
 
 @Repository
 public class IRegistryItemDAOImp implements IRegistryItemDAO {
@@ -20,19 +20,49 @@ public class IRegistryItemDAOImp implements IRegistryItemDAO {
 	@Autowired 
 	private SessionFactory sessionFactory;
 	
-	public void addItem(registryItem ri) {
-		//get current hibernate session
-		Session currentSession = sessionFactory.getCurrentSession();
-		// add item
-		currentSession.save(ri);
+	public int addItem(registryitem ri, String registryUrl) {
 		
+		Session currentSession = sessionFactory.getCurrentSession();
+	    Query query = currentSession.createSQLQuery("INSERT INTO registryitem (url, ItemId, Quantity) VALUES (:u, :i, :q)");
+	    query.setParameter("u", registryUrl);
+	    query.setParameter("i", ri.getItemId());
+	    query.setParameter("q", ri.getQuantity());
+	    return query.executeUpdate();
 	}
 
-	public int updateItem(registryItem update) {
+	
+	@Override
+	public registryitem getItem(String registryUrl, int itemId) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		String stringQuery = "FROM registryitem WHERE url = '" + registryUrl + "' and ItemId = " + itemId;
+		Query query = currentSession.createQuery(stringQuery);
+		@SuppressWarnings("unchecked")
+		List<registryitem> userReturned = query.getResultList();
+		if(userReturned.size()>0)
+			return userReturned.get(0);
+		else
+			return null;
+	}
+	
+
+	@Override
+	public List<registryitem> getallItem(String registryUrl) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		String stringQuery = "FROM registryitem WHERE url = '"+registryUrl+"'";
+		Query query = currentSession.createQuery(stringQuery);
+		@SuppressWarnings("unchecked")
+		List<registryitem> itemList = query.getResultList();
+		if(itemList.size()>0)
+			return itemList;
+		else
+			return null;
+	}
+
+	public int updateItem(registryitem update, String registryUrl) {
 		
 		Session currentSession = sessionFactory.getCurrentSession();
-    	System.out.println(update.getRegistrtyId());
-	    String stringQuery = "UPDATE registryItem SET Quantity= :quantity WHERE RegistryID= '"+update.getRegistrtyId()+"' AND ItemId = '"+update.getItemId()+"'";
+    	System.out.println(update.getUrl());
+	    String stringQuery = "UPDATE registryitem SET Quantity= :quantity WHERE url= '"+update.getUrl()+"' AND ItemId = '"+update.getItemId()+"'";
 	    Query query = currentSession.createQuery(stringQuery);
 	    query.setParameter("quantity", update.getQuantity());
 	    return query.executeUpdate();
@@ -40,17 +70,15 @@ public class IRegistryItemDAOImp implements IRegistryItemDAO {
 		
 	}
 
-	public void removeItem(registryItem remove) {
+	public int removeItem(registryitem remove, String registryUrl) {
 		Session currentSession = sessionFactory.getCurrentSession();
-		String stringQuery = "DELETE from registryItem WHERE RegistryID= '"+remove.getRegistrtyId()+"' AND ItemId = '"+remove.getItemId()+"'";
+		String stringQuery = "DELETE from registryItem WHERE url= '"+remove.getUrl()+"' AND ItemId = '"+remove.getItemId()+"'";
 	    Query query = currentSession.createQuery(stringQuery);
-	    query.executeUpdate();
-		
+	    return query.executeUpdate();
 	}
 
-	
+//	
 	public List<Inventory> searchItem(Inventory search) {
-		
 		Session currentSession = sessionFactory.getCurrentSession();
 		String stringQuery = "FROM Inventory WHERE itemName='" + search.getItemName() + "'";
 	    Query query = currentSession.createQuery(stringQuery);
@@ -64,30 +92,5 @@ public class IRegistryItemDAOImp implements IRegistryItemDAO {
 	    }
 		
 	}
-	
-	@Override
-	public registryItem getItem(int registryId, int itemId) {
-		Session currentSession = sessionFactory.getCurrentSession();
-		String stringQuery = "FROM registryitem WHERE RegistryId = " + registryId + " and ItemId = " + itemId;
-		Query query = currentSession.createQuery(stringQuery);
-		@SuppressWarnings("unchecked")
-		List<registryItem> userReturned = query.getResultList();
-		if(userReturned.size()>0)
-			return userReturned.get(0);
-		else
-			return null;
-	}
 
-	@Override
-	public List<registryItem> getallItem() {
-		Session currentSession = sessionFactory.getCurrentSession();
-		String stringQuery = "FROM registryitem";
-		Query query = currentSession.createQuery(stringQuery);
-		@SuppressWarnings("unchecked")
-		List<registryItem> itemList = query.getResultList();
-		if(itemList.size()>0)
-			return itemList;
-		else
-			return null;
-	}
 }

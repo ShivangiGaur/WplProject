@@ -4,21 +4,21 @@ import java.util.List;
 
 import wpl.spring.entity.Inventory;
 import wpl.spring.entity.Registry;
-import wpl.spring.entity.registryItem;
+import wpl.spring.entity.registryitem;
 
 public interface IRegistryItemDAO {
 
-	public void addItem(registryItem ri);
+	public int addItem(registryitem ri, String registryUrl);
 
-	public int updateItem(registryItem update);
-
-	public void removeItem(registryItem remove);
+	public registryitem getItem(String registryUrl, int itemId);
 	
-	public List<registryItem> getallItem();
+	public List<registryitem> getallItem(String registryUrl);
+
+	public int updateItem(registryitem update, String registryUrl);
+
+	public int removeItem(registryitem remove, String registryUrl);
 
 	public List<Inventory> searchItem(Inventory search);
-
-	public registryItem getItem(int registryId, int itemId);
 	
 
 }

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import wpl.spring.entity.Registry;
-import wpl.spring.entity.registryItem;
+import wpl.spring.entity.registryitem;
 
 @Repository
 public class RegistryDaoImpl implements RegistryDao {
@@ -41,7 +41,7 @@ public class RegistryDaoImpl implements RegistryDao {
 
 
 	@Override
-	public List<Registry> getallUserRegistry(String userEmail) {
+	public List<Registry> getAllRegistries(String userEmail) {
 		Session currentSession = sessionFactory.getCurrentSession();
 		String stringQuery = "FROM registry WHERE userEmail = '" + userEmail +"'";
 		Query query = currentSession.createQuery(stringQuery);

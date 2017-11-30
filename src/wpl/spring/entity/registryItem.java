@@ -7,15 +7,10 @@ import javax.persistence.Table;
 
 @Entity(name="registryitem")
 @Table(name="registryitem")
-public class registryItem {
-
-	public registryItem()
-	{
-		
-	}
+public class registryitem {
 	@Id
-	@Column(name = "RegistryID")
-	private int registrtyId;
+	@Column(name = "url")
+	private String url;
 	
 	@Column(name = "ItemId")
 	private int itemId;
@@ -23,12 +18,23 @@ public class registryItem {
 	@Column(name = "Quantity")
 	private int quantity;
 
-	public int getRegistrtyId() {
-		return registrtyId;
+	public registryitem()
+	{
+		
+	}
+	public registryitem(String url, int itemId, int quantity) {
+		super();
+		this.url = url;
+		this.itemId = itemId;
+		this.quantity = quantity;
 	}
 
-	public void setRegistrtyId(int registrtyId) {
-		this.registrtyId = registrtyId;
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public int getItemId() {
@@ -47,11 +53,7 @@ public class registryItem {
 		this.quantity = quantity;
 	}
 
-	public registryItem(int registrtyId, int itemId, int quantity) {
-		this.registrtyId = registrtyId;
-		this.itemId = itemId;
-		this.quantity = quantity;
-	}
+	
 	
 	
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import wpl.spring.entity.Registry;
 import wpl.spring.entity.User;
-import wpl.spring.entity.registryItem;
+import wpl.spring.entity.registryitem;
 import wpl.spring.service.RegistryService;
 
 @Controller
@@ -29,16 +29,16 @@ public class RegistryController {
 	@CrossOrigin
 	@RequestMapping(value = "/add/", method = RequestMethod.POST,
 	consumes = org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Void> add(@RequestBody Registry registry)
+	public ResponseEntity<Void> addRegistry(@RequestBody Registry registry)
 	{
-		System.out.println("RegistryId:" +registry.getRegistryId() + "RegistryName: " +registry.getRegistryName());
+		System.out.println("RegistryUrl:" +registry.getUrl() + "RegistryName: " +registry.getRegistryName());
 		registryService.addRegistry(registry);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	//-------------------------------------------------------------
 	@CrossOrigin
 	@RequestMapping(value = "/getregistry/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Registry> getUser(@RequestParam("url") String url) {
+	public ResponseEntity<Registry> getRegistry(@RequestParam("url") String url) {
 		//	        System.out.println("Fetching User with email " + email);
 		Registry registry = registryService.getRegistry(url);
 		if (registry == null) {
@@ -51,9 +51,9 @@ public class RegistryController {
 	//-------------------------------------------------------------
 	@CrossOrigin
 	@RequestMapping(value = "/getallregistry/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<Registry>> getallUser(@RequestParam("userEmail") String email) {
+	public ResponseEntity<List<Registry>> getAllRegistries(@RequestParam("userEmail") String email) {
 		System.out.println("Fetching User with email " + email);
-		List<Registry> registry = registryService.getallUserRegistry(email);
+		List<Registry> registry = registryService.getAllRegistries(email);
 		if (registry == null) {
 			System.out.println("Registry having id " + email + " not found");
 			return new ResponseEntity<List<Registry>>(HttpStatus.NOT_FOUND);
@@ -65,11 +65,8 @@ public class RegistryController {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/updateregistry/", method = RequestMethod.PUT)
-    public ResponseEntity<Registry> updateUser(@RequestParam("url") String url, @RequestBody Registry registry) {
+    public ResponseEntity<Registry> updateRegistry(@RequestParam("url") String url, @RequestBody Registry registry) {
         System.out.println("Updating registry with url  " + url);
-         
-
-         
         int result = registryService.updateRegistry(url, registry);
         if(result>0)
         	return new ResponseEntity<Registry>(registry, HttpStatus.OK);

@@ -30,9 +30,9 @@ public class RegistryServiceImpl implements RegistryService {
 
 	@Override
 	@Transactional
-	public List<Registry> getallUserRegistry(String userEmail) {
+	public List<Registry> getAllRegistries(String userEmail) {
 
-		return registryDao.getallUserRegistry(userEmail);
+		return registryDao.getAllRegistries(userEmail);
 	}
 
 	@Override

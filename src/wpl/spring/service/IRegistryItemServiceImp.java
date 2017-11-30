@@ -11,7 +11,7 @@ import wpl.spring.dao.IRegistryItemDAO;
 import wpl.spring.entity.Inventory;
 import wpl.spring.entity.Registry;
 import wpl.spring.entity.User;
-import wpl.spring.entity.registryItem;
+import wpl.spring.entity.registryitem;
 
 @Service
 public class IRegistryItemServiceImp implements IRegistryItemService {
@@ -23,23 +23,35 @@ public class IRegistryItemServiceImp implements IRegistryItemService {
 
 	@Override
 	@Transactional
-	public void addItem(registryItem ri) {
-		addItemDao.addItem(ri);
+	public int addItem(registryitem ri, String registryUrl) {
+		return addItemDao.addItem(ri, registryUrl);
+	}
+	
+
+	@Override
+	@Transactional
+	public registryitem getItem(String registryUrl, int itemId) {
+		return addItemDao.getItem(registryUrl, itemId);
+	}
+
+
+	@Override
+	@Transactional
+	public List<registryitem> getallItem(String registryUrl) {
+		return addItemDao.getallItem(registryUrl);
+	}
+	
+	@Override
+	@Transactional
+	public int updateItem(registryitem update, String registryUrl) {
+		return addItemDao.updateItem(update, registryUrl);
 		
 	}
 
 	@Override
 	@Transactional
-	public int updateItem(registryItem update) {
-		return addItemDao.updateItem(update);
-		
-	}
-
-	@Override
-	@Transactional
-	public void removeItem(registryItem remove) {
-		addItemDao.removeItem(remove);
-		
+	public int removeItem(registryitem remove, String registryUrl) {
+		return addItemDao.removeItem(remove, registryUrl);
 	}
 
 	@Override
@@ -47,22 +59,6 @@ public class IRegistryItemServiceImp implements IRegistryItemService {
 	public List<Inventory> searchItem(Inventory search) {
 		return addItemDao.searchItem(search);
 		
-	}
-
-	
-
-	@Override
-	@Transactional
-	public registryItem getItem(int registryId, int itemId) {
-		return addItemDao.getItem(registryId, itemId);
-	}
-
-	@Override
-	@Transactional
-	public List<registryItem> getallItem() {
-		return addItemDao.getallItem();
-	}
-
-	
+	}	
 	
 }
